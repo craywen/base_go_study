@@ -1,7 +1,5 @@
 package utils
 
-import "fmt"
-
-func  Test()  a int   {
-	return 0;
+func Test() int {
+	return 0
 }
