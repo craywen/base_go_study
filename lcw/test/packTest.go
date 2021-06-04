@@ -2,6 +2,7 @@ package test
 
 import (
 	"fmt"
+	"github.com/go-sql-driver/mysql"
 	"math"
 	"math/big"
 	"mygo/lcw/aaabbb"
@@ -9,10 +10,9 @@ import (
 	"regexp"
 	"strconv"
 	"sync"
-	"github.com/go-sql-driver/mysql"
 )
 
-type Info  struct {
+type Info struct {
 	mu sync.Mutex //sync.Mutex 是一个互斥锁，它的作用是守护在临界区入口来确保同一时间只能有一个线程进入临界区。
 }
 
@@ -25,13 +25,13 @@ func PackTest() {
 	//正则包
 	searchIn := "John: 2578.34 William: 4567.23 Steve: 5632.18"
 	pat := "[0-9]+.[0-9]+" //正则
-	f := func(s string) string{
-		v, _ :=strconv.ParseFloat(s,32)
-		return strconv.FormatFloat(v * 2, 'f', 2, 32)
+	f := func(s string) string {
+		v, _ := strconv.ParseFloat(s, 32)
+		return strconv.FormatFloat(v*2, 'f', 2, 32)
 	}
 	match, err := regexp.Match(pat, []byte(searchIn))
-	if(match){
-		fmt.Println("Match Found! %s %s",err,match)
+	if match {
+		fmt.Println("Match Found! %s %s", err, match)
 	}
 	re, _ := regexp.Compile(pat)
 	//将匹配到的部分替换为"##.#"
@@ -44,8 +44,8 @@ func PackTest() {
 	//锁和sync 包
 
 	//精密计算的big包
-	bigOne :=big.NewInt(math.MaxInt64)
-	bigTwo :=bigOne
+	bigOne := big.NewInt(math.MaxInt64)
+	bigTwo := bigOne
 	bigThree := big.NewInt(1937)
 	bigFour := big.NewInt(1)
 	div := bigFour.Mul(bigOne, bigTwo).Add(bigFour, bigOne).Div(bigFour, bigThree)
@@ -60,7 +60,6 @@ func PackTest() {
 	rq.Mul(rm, rn).Add(rq, ro).Mul(rq, rp)
 	fmt.Printf("Big Rat: %v\n", rq)
 
-
 	//使用自定义包 千辛万苦
 	//1:要看环境变量(项目是否在GOPATH的src 目录下)
 	//2:idea环境变量 设置GOPATH
@@ -70,7 +69,7 @@ func PackTest() {
 	fmt.Printf("packTest rStr: %v\n", rStr)
 }
 
-func Update(info *Info)  {
+func Update(info *Info) {
 	info.mu.Lock()
 	// critical section:
 	fmt.Errorf("锁逻辑块")
