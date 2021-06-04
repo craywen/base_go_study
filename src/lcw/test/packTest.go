@@ -2,7 +2,6 @@ package test
 
 import (
 	"fmt"
-	"github.com/go-sql-driver/mysql"
 	"math"
 	"math/big"
 	"mygo/lcw/aaabbb"
@@ -67,6 +66,8 @@ func PackTest() {
 	aaabbb.Re()
 	rStr := pack.ReturnStr()
 	fmt.Printf("packTest rStr: %v\n", rStr)
+
+	//
 }
 
 func Update(info *Info) {
